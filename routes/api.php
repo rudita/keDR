@@ -17,16 +17,11 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-// Route::post('login','ApiLogController@login');
-
-//http://local-api.yumbox.id:9090/public/account/login
-
-// $api->post('account/register', [
-//     'uses' => 'App\Http\Controllers\Frontend\DoctorAccountController@register'
-// ]);
-
-
-Route::post('login','Frontend\DoctorAccountController@login');
-
+Route::post('doctor/register','Frontend\DoctorAccountController@register');
+Route::post('doctor/login','Frontend\DoctorAccountController@login');
+Route::post('doctor/profile','Frontend\DoctorAccountController@profile');
+Route::post('doctor/Updateprofile','Frontend\DoctorAccountController@Updateprofile');
+Route::post('sendOTP','Frontend\SmsController@sendOTP');
+Route::post('verifyOTP','Frontend\SmsController@verifyOTP');
 
 

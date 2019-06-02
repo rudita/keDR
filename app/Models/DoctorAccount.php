@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class doctor extends Model
+class DoctorAccount extends Model
 {
-
     protected $table = 'doctor_accounts';
 
     protected $fillable = ['doctor_name',
-                           'handphone',
-                           'email',
-                           'username',                          
+                           'specialist_id',
+                           'handphone',                          
+                           'idi_number',                          
                            'password',
                            'api_token',
-                           'web_token',
-                           'title_id',
-                           'about'];
+                           'web_token',                          
+                           'about',
+                           'account_verified'];
 
     protected $hidden = ['id',
                         'api_token',
