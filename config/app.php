@@ -176,12 +176,17 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\AclServiceProvider::class,
         App\Providers\DoctorServiceProvider::class,
-        
+        App\Providers\PatientServiceProvider::class, 
+        App\Providers\DoctorSpecialistProvider::class,     
+        App\Providers\BannerPromotionProvider::class,
+        App\Providers\DoctorScheduleProvider::class,
+        App\Providers\DoctorScheduleDetailProvider::class,
 
         'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
         //Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-
+        Dingo\Api\Provider\LaravelServiceProvider::class,
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
     ],
 

@@ -15,15 +15,14 @@ class DoctorAccountTransformer extends TransformerAbstract
 
     public function transform(DoctorAccount $doctorAccount)
     {
-        // $activation = Activation::completed($doctorAccount->user);
-
         return [
-            'id'                    => $doctorAccount->user->id,
-            'doctor_name'           => $doctorAccount->user->doctor_name,
-            'specialist_id'         => $doctorAccount->user->specialist_id,
-            'handphone'             => $doctorAccount->user->handphone,
-            'idi_number'            => $doctorAccount->user->idi_number,
-            'password'              => $doctorAccount->user->password
+            'id'                    => $doctorAccount->doctor_id,
+            'doctor_name'           => $doctorAccount->doctor_name,
+            'idi_number'            => $doctorAccount->idi_number,
+            'handphone'             => $doctorAccount->handphone,
+            'email'                 => $doctorAccount->email,
+            'specialist_id'         => $doctorAccount->specialist_id,
+            'about'                 => $doctorAccount->about           
         ];
     }
     

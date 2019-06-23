@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'secret' => env('JWT_SECRET', 'changeme'),
+    'secret' => env('JWT_SECRET', 'jEgbn3D3FZR9utiwqxguXXczjIIMBjwI'),
 
     /*
     |--------------------------------------------------------------------------
@@ -73,7 +73,7 @@ return [
     |
     */
 
-    'user' => 'App\Models\User',
+    'user' => App\Models\AclUser::class,
 
     /*
     |--------------------------------------------------------------------------

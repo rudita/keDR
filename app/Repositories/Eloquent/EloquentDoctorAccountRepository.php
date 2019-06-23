@@ -1,24 +1,18 @@
 <?php
 namespace App\Repositories\Eloquent;
 
-use App\Models\User;
 use App\Repositories\DoctorAccountRepository;
 use DB;
 
 class EloquentDoctorAccountRepository extends EloquentBaseRepository implements DoctorAccountRepository
-{
-
-    public function isUnique($email, $phone)
+{     
+    public function findByDoctorId($doctor_id)
     {
-        $user = User::where('email', '=', $email)->orWhere(function($query) use($phone) {
-            $query->where('phone', '=', $phone);
-        })->first();
-        if ( empty($user) ) {
-            return true;
-        }
-        return !$user->is_customer;
+        $query = $this->model->query();
+        $query->where('doctor_id', '=', $doctor_id);
+        return $query->first();
     }
-    
+
     public function findByIdiNumber($idi_number)
     {
         $query = $this->model->query();
@@ -26,10 +20,10 @@ class EloquentDoctorAccountRepository extends EloquentBaseRepository implements 
         return $query->first();
     }
 
-    public function findById($id)
+    public function findByUserId($userid)
     {
         $query = $this->model->query();
-        $query->where('id', '=', $id);
+        $query->where('user_id', '=', $userid);
         return $query->first();
     }
 }

@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'session' => 'cartalyst_sentinel',
+    'session' => 'keDR_app',
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +40,7 @@ return [
     |
     */
 
-    'cookie' => 'cartalyst_sentinel',
+    'cookie' => 'keDR_app',
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
     'users' => [
 
         // 'model' => 'Cartalyst\Sentinel\Users\EloquentUser',
-        'model' => 'App\Models\User',
+        'model' => 'App\Models\AclUser',
     ],
 
     /*

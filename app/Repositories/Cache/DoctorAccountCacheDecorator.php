@@ -3,7 +3,7 @@ namespace App\Repositories\Cache;
 
 use App\Repositories\DoctorAccountRepository;
 
-class DocctorAccountCacheDecorator extends BaseCacheDecorator implements  DoctorAccountRepository
+class DoctorAccountCacheDecorator extends BaseCacheDecorator implements  DoctorAccountRepository
 {
 
     /**
@@ -17,15 +17,6 @@ class DocctorAccountCacheDecorator extends BaseCacheDecorator implements  Doctor
         $this->repository = $repository;
     }
 
-    /**
-     * @param $email
-     * @param $phone
-     */
-    public function isUnique($email, $phone)
-    {
-        return $this->repository->isUnique($email, $phone);
-    }
-
     public function findByIdiNumber($idi_number)
     {
         return $this->cache
@@ -37,13 +28,13 @@ class DocctorAccountCacheDecorator extends BaseCacheDecorator implements  Doctor
             );
     }
 
-    public function findById($id)
+    public function findByUserId($userid)
     {
         return $this->cache
             ->tags($this->entityName, 'global')
-            ->remember("{$this->locale}.{$this->entityName}.findById.{$id}", $this->cacheTime,
-                function () use($id){
-                    return $this->repository->findById($id);
+            ->remember("{$this->locale}.{$this->entityName}.findByUserId.{$userid}", $this->cacheTime,
+                function () use($userid){
+                    return $this->repository->findByUserId($userid);
                 }
             );
     }

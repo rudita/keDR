@@ -9,9 +9,9 @@ namespace App\Repositories;
 
 interface DoctorAccountRepository extends BaseRepository
 {
-    public function isUnique($email, $phone);
+    public function findByDoctorId($doctorid);
 
     public function findByIdiNumber($idinumber);
 
-    public function findById($id);
+    public function findByUserId($userid);
 }
