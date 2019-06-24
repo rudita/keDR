@@ -26,7 +26,7 @@ $api->version('v1', function ($api) {
         $api->POST('verifyOTP',  'App\Http\Controllers\Api\OTPController@verifyOTP');   
         
         $api->POST('createSchedule',  'App\Http\Controllers\Api\DoctorScheduleController@create');  
-        $api->POST('SubmitQueue',  'App\Http\Controllers\Api\DoctorScheduleDetailController@SubmitQueue');
+        $api->POST('SubmitQueue',  'App\Http\Controllers\Api\PatientBookingRequestController@SubmitQueue');
         
         $api->GET('getHistorySchedule',  'App\Http\Controllers\Api\DoctorScheduleDetailController@getHistorySchedule');
         $api->GET('getSchedule',  'App\Http\Controllers\Api\DoctorScheduleDetailController@getSchedule');
@@ -51,8 +51,7 @@ $api->version('v1', function ($api) {
         $api->GET('getDoctorByName', 'App\Http\Controllers\Api\GetDoctorController@getDoctorByName');    
         $api->GET('getDoctorBySpecialistId', 'App\Http\Controllers\Api\GetDoctorController@getDoctorBySpecialistId');
         $api->GET('getDoctorBySpecialistIdAndName', 'App\Http\Controllers\Api\GetDoctorController@getDoctorBySpecialistIdAndName');        
-        $api->GET('getDoctorByLocation', 'App\Http\Controllers\Api\GetDoctorController@getDoctorByLocation');             
-        $api->GET('getDoctorByLocation', 'App\Http\Controllers\Api\GetDoctorController@getDoctorByLocation'); 
+        $api->GET('getDoctorByLocation', 'App\Http\Controllers\Api\GetDoctorController@getDoctorByLocation');                     
 
         $api->GET('getDetailDoctor', 'App\Http\Controllers\Api\GetDoctorController@getDetailDoctor'); 
         $api->GET('getDoctorSchedule', 'App\Http\Controllers\Api\GetDoctorController@getDoctorSchedule');  

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\DoctorSpecialist;
 use App\Http\Controllers\Controller;
-use App\Repositories\DoctorSpecialistRepository;
+use App\Repositories\PatientBookingRequestRepository;
 use App\Transformers\DoctorSpecialistTransformer;
 use Illuminate\Http\Request;
 
@@ -12,27 +12,67 @@ use Illuminate\Http\Request;
 class PatientBookingRequestController extends Controller
 {
     /**
-     * @var DoctorSpecialistRepository
+     * @var PatientBookingRequestRepository
      */
-    protected $doctorSpecialistRepository;
+    protected $patientBookingRequestRepository;
 
     /**
      * CategoryController constructor.
-     * @param DoctorSpecialistRepository $catalogItemCategoryRepository
+     * @param PatientBookingRequestRepository $catalogItemCategoryRepository
      */
-    public function __construct(DoctorSpecialistRepository $doctorSpecialistRepository)
+    public function __construct(PatientBookingRequestRepository $patientBookingRequestRepository)
     {        
-        $this->doctorSpecialistRepository = $doctorSpecialistRepository;
+        $this->patientBookingRequestRepository = $patientBookingRequestRepository;
     }
 
     /**
      * @param Request $request
      * @return \Dingo\Api\Http\Response
      */
-    public function index()
-    {      
-        $specialist = DoctorSpecialist::query()->get();
-        return $this->response()->collection($specialist, new DoctorSpecialistTransformer());      
-    }   
+    public function BookingRegister(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'patient_id' => 'required',
+            'schedule_detail_id' => 'required',
+            'rates_id' => 'required',
+            'remarks' => 'required',
+            'method_id' => 'required',            
+        ]);
+        if ($validator->fails()) {
+            throw new BadRequestHttpException($validator->errors()->first());
+        }       
 
+        $schedule = $this->patientBookingRequestRepository->create($input);
+        return $this->response()->item($schedule, new DoctorScheduleTransformer());
+    }
+
+    
+    public function BookingQueue(Request $request)
+    {        
+        $nextQueue = $this->patientBookingRequestRepository->findNextQueue($request->schedule_detail_id);
+
+        $PatientBooking = $this->patientBookingRequestRepository->findByBookingId($request->Booking_Request_Id);
+
+        $this->PatientBookingRequestRepository->update($PatientBooking, [
+            'Queue_number' => $nextQueue
+        ]);
+
+        // return $this->response()->item($PatientBooking, new PatientBookingRequestTransformer());
+
+        return response()->json(['data' => [ 'message' => 'Booking Queue berhasil']],200);
+    }
+
+    public function SubmitQueue(Request $request)
+    {        
+      
+        $PatientBooking = $this->patientBookingRequestRepository->findByBookingId($request->Booking_Request_Id);
+
+        $this->PatientBookingRequestRepository->update($PatientBooking, [
+            'Queue_done' => "1"
+        ]);
+
+        return response()->json(['data' => [ 'message' => 'Submit Queue berhasil']],200);
+        // return $this->response()->item($PatientBooking, new PatientBookingRequestTransformer());
+    }
 }

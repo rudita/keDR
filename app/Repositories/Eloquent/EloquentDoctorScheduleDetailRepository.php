@@ -27,4 +27,5 @@ class EloquentDoctorScheduleDetailRepository extends EloquentBaseRepository impl
         ->Where('doctor_schedule_detail.is_done', '=', "0")
         ->get(['doctor_schedule_detail.*']);
     }
+
 }
