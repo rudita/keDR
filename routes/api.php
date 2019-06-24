@@ -55,8 +55,9 @@ $api->version('v1', function ($api) {
 
         $api->GET('getDetailDoctor', 'App\Http\Controllers\Api\GetDoctorController@getDetailDoctor'); 
         $api->GET('getDoctorSchedule', 'App\Http\Controllers\Api\GetDoctorController@getDoctorSchedule');  
-
-        $api->POST('Booking',  'App\Http\Controllers\Api\PatientBookingRequestController@Booking');
+        
+        $api->POST('BookingRegister',  'App\Http\Controllers\Api\PatientBookingRequestController@BookingRegister');
+        $api->POST('BookingQueue',  'App\Http\Controllers\Api\PatientBookingRequestController@BookingQueue');
 
 
     });
