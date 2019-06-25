@@ -237,5 +237,18 @@ class PatientAccountController extends Controller
         
     }
 
+    public function logout(Request $request)
+    {
+
+        if ( !$this->user = JWTAuth::parseToken()->authenticate() ) {
+            throw new AuthenticationException('Account not found');
+        }
+
+        auth()->logout();
+        Sentinel::logout(null, true);
+        return response()->json(['data' => 'done']);
+        
+    }
+
 
 }
