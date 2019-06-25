@@ -244,6 +244,11 @@ class PatientAccountController extends Controller
             throw new AuthenticationException('Account not found');
         }
 
+        $patientAccount = $this->patientAccountRepository->findByUserId($this->user->id);
+        if (empty($patientAccount)) {
+            throw new AuthenticationException('Account not found');
+        }
+
         auth()->logout();
         Sentinel::logout(null, true);
         return response()->json(['data' => 'done']);

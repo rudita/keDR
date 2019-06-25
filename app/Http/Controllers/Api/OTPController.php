@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Twilio\Jwt\ClientToken;
+use App\Repositories\AclUserRepository;
 
 class OTPController extends Controller
 {
@@ -19,9 +20,16 @@ class OTPController extends Controller
      */
     protected $OTP;
 
-    public function __construct( OTP $OTP )
+    /**
+     * @var AclUserRepository
+     */
+    protected $aclUserRepository;
+
+    public function __construct( OTP $OTP,
+                                AclUserRepository $aclUserRepository )
     {
         $this->OTP = $OTP;
+        $this->aclUserRepository = $aclUserRepository;  
     }
 
     public function store(Request $request)
@@ -80,6 +88,35 @@ class OTPController extends Controller
                 ],401);
         }
 
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $handphone = $request->get('handphone', null);
+        if (empty($handphone)) {
+            throw new BadRequestHttpException('handphone cannot be empty');
+        }
+
+        $user = $this->aclUserRepository->findByUsername($handphone);
+
+        if (empty($user)) {
+            throw new BadRequestHttpException('handphone is not registered');
+        }
+
+        try {
+            DB::transaction(function() use($user) {
+                
+                $password = generatePassword();
+                $this->aclUserRepository->update($user, [
+                    'password' => bcrypt($password)
+                ]);
+                
+            });
+
+            return response()->json(['data' => 'done']);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
 }
